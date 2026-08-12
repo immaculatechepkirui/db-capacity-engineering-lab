@@ -1,0 +1,6 @@
+NAME           IMAGE                                      COMMAND                  SERVICE        CREATED             STATUS                       PORTS
+capacity-api   db-capacity-engineering-lab-capacity-api   "docker-entrypoint.s…"   capacity-api   About an hour ago   Up About an hour             0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp
+grafana        grafana/grafana:latest                     "/run.sh"                grafana        About an hour ago   Up 18 minutes                
+mongo-db       mongo:6.0                                  "docker-entrypoint.s…"   mongo-db       2 hours ago         Up About an hour             0.0.0.0:27017->27017/tcp, [::]:27017->27017/tcp
+mysql-db       mysql:8.0                                  "docker-entrypoint.s…"   mysql-db       2 hours ago         Up About an hour (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp
+prometheus     prom/prometheus:latest                     "/bin/prometheus --c…"   prometheus     About an hour ago   Up About an hour             0.0.0.0:9090->9090/tcp, [::]:9090->9090/tcp

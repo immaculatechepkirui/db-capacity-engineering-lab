@@ -1,0 +1,11 @@
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+bdfeae1918d0   grafana        1.15%     350.2MiB / 14.93GiB   2.29%     0B / 0B           287MB / 51MB      37
+73fd6f99e927   prometheus     0.58%     119MiB / 14.93GiB     0.78%     10.3MB / 453kB    66.4MB / 3.99MB   18
+c04bb8bb08ee   capacity-api   0.78%     43.95MiB / 160MiB     27.47%    2.25GB / 2.94GB   66.2MB / 0B       11
+600e494fa3eb   mysql-db       1.07%     467.9MiB / 14.93GiB   3.06%     1.48MB / 2.24GB   71.6MB / 447MB    40
+bc74c6443665   mongo-db       0.65%     142.8MiB / 14.93GiB   0.93%     9.94kB / 126B     80.7MB / 13.6MB   30
+84362bbdd40d   nginx          0.00%     0B / 0B               0.00%     0B / 0B           0B / 0B           0
+64492f8e2efd   service-a      0.34%     174.4MiB / 14.93GiB   1.14%     594kB / 1.98MB    8.64MB / 7.82MB   10
+3d0bd3097eed   jaeger         0.29%     58.42MiB / 14.93GiB   0.38%     3.7MB / 823kB     29MB / 0B         15
+93ddd91df6cb   service-c      0.36%     173.5MiB / 14.93GiB   1.13%     1.07MB / 2.97MB   17.4MB / 12.7MB   10
+84494bba08a8   service-b      0.02%     178.4MiB / 14.93GiB   1.17%     1.27MB / 3.15MB   14.9MB / 10.5MB   10

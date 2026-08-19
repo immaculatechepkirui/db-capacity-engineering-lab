@@ -1,0 +1,8 @@
+# ALB security group allows 0.0.0.0/0 on port 80 inbound — intentional.
+# The ALB is the public entry point; restricting to a CIDR would break
+# internet access. The instance SG has no such rule.
+AVD-AWS-0107
+
+# Aiven MySQL egress uses 0.0.0.0/0 because Aiven's IP is not static.
+# Traffic is encrypted (SSL required). Scoped to db_port only.
+AVD-AWS-0104

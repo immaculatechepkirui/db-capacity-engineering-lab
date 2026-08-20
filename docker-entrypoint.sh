@@ -4,4 +4,4 @@ set -a
 set +a
 
 service nginx start || true
-exec node api/index.js
+exec node api/server.js

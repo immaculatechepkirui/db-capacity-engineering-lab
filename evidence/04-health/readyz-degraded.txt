@@ -1,0 +1,25 @@
+Test: break the secret by rotating to a wrong password, then check /readyz.
+
+Step 1 — break the secret:
+  aws secretsmanager put-secret-value \
+    --secret-id regional-health/db \
+    --secret-string '{"engine":"mysql","username":"avnadmin","password":"WRONG_PASSWORD_HERE","host":"<aiven-host>","port":10876,"dbname":"defaultdb"}' \
+    --endpoint-url http://localhost:4566
+
+Step 2 — check readyz flips to 503:
+  curl -i http://<instance-ip>:3000/readyz
+  Expected: HTTP/1.1 503 Service Unavailable
+
+Step 3 — restore correct password (from Secrets Manager, never in git):
+  aws secretsmanager put-secret-value \
+    --secret-id regional-health/db \
+    --secret-string '{"engine":"mysql","username":"avnadmin","password":"<from-github-secret>","host":"<aiven-host>","port":10876,"dbname":"defaultdb"}' \
+    --endpoint-url http://localhost:4566
+
+Step 4 — confirm recovery:
+  curl -i http://<instance-ip>:3000/readyz
+  Expected: HTTP/1.1 200 OK
+
+Note: The real password lives only in GitHub Actions secrets and local
+environment variables. It is never committed to git — this is exactly
+what the gitleaks gate enforces.

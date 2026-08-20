@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@b6c5a5e516aef7754e69ebcdd7cc53d7be08c331
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  trivy-config:
+    name: IaC scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: aquasecurity/trivy-action@dc5b5ac3c7dc2d12462e30e6f596b0e3a8e35d7c
+        with:
+          scan-type: config
+          scan-ref: terraform/
+          ignore-unfixed: true
+          exit-code: 1
+          severity: HIGH,CRITICAL
+
+  zizmor:
+    name: Actions security
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: woodruffw/zizmor-action@0a4cd28f55df29a3c41873e8b4d8e38e0f7491b1
+        with:
+          zizmor-version: "1.0.0"
+
+  build-and-deploy:
+    name: Build scan deploy
+    runs-on: ubuntu-latest
+    needs: [gitleaks, trivy-config, zizmor]
+    permissions:
+      contents: read
+    env:
+      LOCALSTACK_AUTH_TOKEN: ${{ secrets.LOCALSTACK_AUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Start LocalStack
+        uses: LocalStack/setup-localstack@49f72e812b2c4ff70e8b9c7025b01c1637e3bb6e
+        with:
+          image-tag: latest
+          install-awslocal: true
+
+      - name: Build image
+        run: make build
+
+      - name: Bootstrap state
+        run: make bootstrap
+
+      - name: Apply
+        run: |
+          cd terraform
+          tflocal init -reconfigure -input=false
+          tflocal apply -auto-approve -input=false \
+            -var="app_ami_id=localstack-ec2/app:ami-$(git rev-parse --short=12 HEAD)"
+
+      - name: Verify
+        run: make verify

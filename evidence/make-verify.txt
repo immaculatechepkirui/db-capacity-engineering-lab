@@ -1,3 +1,6 @@
+==> Verification checks
+--- 1. Terraform plan empty after apply ---
+FAIL: plan has changes
 [0m[1mmodule.service.data.aws_vpc.default: Reading...[0m[0m
 [0m[1mmodule.data.aws_secretsmanager_secret.db: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:regional-health/db-BaBhkR][0m
 [0m[1mmodule.data.aws_secretsmanager_secret_version.db: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:regional-health/db-BaBhkR|terraform-20260820204225512600000002][0m
@@ -15,7 +18,7 @@ Terraform will perform the following actions:
 
 [1m  # module.service.aws_instance.service[0m will be created
 [0m  [32m+[0m[0m resource "aws_instance" "service" {
-      [32m+[0m[0m ami                                  = "localstack-ec2/app:ami-7e315aae834c"
+      [32m+[0m[0m ami                                  = "sha-7e315aae834c"
       [32m+[0m[0m arn                                  = (known after apply)
       [32m+[0m[0m associate_public_ip_address          = (known after apply)
       [32m+[0m[0m availability_zone                    = (known after apply)
@@ -293,3 +296,4 @@ Changes to Outputs:
 
 Note: You didn't use the -out option to save this plan, so Terraform can't
 guarantee to take exactly these actions if you run "terraform apply" now.
+make: *** [Makefile:32: verify] Error 1

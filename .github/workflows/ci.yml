@@ -60,21 +60,16 @@ jobs:
     needs: [gitleaks, trivy-config, zizmor]
     permissions:
       contents: read
-    env:
-      LOCALSTACK_AUTH_TOKEN: ${{ secrets.LOCALSTACK_AUTH_TOKEN }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
 
-      - name: Start LocalStack
-        uses: LocalStack/setup-localstack@7c8a0cb3405bc58be4c8f763f812aa000bc46303 # v0.3.2
-        with:
-          image-tag: 'latest'
-          install-awslocal: true
-        env:
-          LOCALSTACK_ACKNOWLEDGE_ACCOUNT_REQUIREMENT: '1'
-          IMAGE_NAME: 'localstack/localstack'
+      - name: Start LocalStack Core Engine
+        run: |
+          pip install localstack
+          localstack start -d
+          localstack wait
 
       - name: Build image
         run: make build

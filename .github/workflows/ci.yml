@@ -72,8 +72,9 @@ jobs:
         with:
           image-tag: 'latest'
           install-awslocal: true
+          use-pro: false
         env:
-          LOCALSTACK_AUTH_TOKEN: ${{ secrets.LOCALSTACK_AUTH_TOKEN }}
+          IMAGE_NAME: 'localstack/localstack'
           LOCALSTACK_ACKNOWLEDGE_ACCOUNT_REQUIREMENT: '1'
 
       - name: Build image

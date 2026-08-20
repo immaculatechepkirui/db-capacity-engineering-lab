@@ -1,42 +1,53 @@
 variable "service_name" {
-  type = string
-  validation {
-    condition     = length(trimspace(var.service_name)) > 0
-    error_message = "service_name must not be empty."
-  }
+  description = "Base name for resources in this module."
+  type        = string
+  default     = "regional-health"
 }
 
 variable "app_ami_id" {
-  type = string
+  description = "LocalStack Docker-backed AMI id, e.g. localstack-ec2/app:ami-<sha12>."
+  type        = string
   validation {
-    condition     = length(trimspace(var.app_ami_id)) > 0
-    error_message = "app_ami_id must be set from the pipeline output."
+    condition     = can(regex("^ami-[0-9a-f]{12}$", var.app_ami_id))
+    error_message = "app_ami_id must be ami- followed by exactly 12 lowercase hex chars."
   }
+}
+
+variable "instance_type" {
+  description = "EC2 instance type."
+  type        = string
+  default     = "t3.small"
 }
 
 variable "app_port" {
-  type    = number
-  default = 3000
+  description = "Port the app listens on; nginx proxies to it."
+  type        = number
+  default     = 3000
 }
 
 variable "secret_arn" {
-  type = string
-  validation {
-    condition     = startswith(var.secret_arn, "arn:aws:secretsmanager:")
-    error_message = "secret_arn must be a valid Secrets Manager ARN."
-  }
+  description = "ARN of the credential secret — the ARN only, never the value."
+  type        = string
+}
+
+variable "db_endpoint" {
+  description = "Aiven MySQL hostname the instance connects to."
+  type        = string
 }
 
 variable "db_port" {
-  type = number
+  description = "Aiven MySQL port (Aiven-assigned high port, not 3306)."
+  type        = number
 }
 
 variable "db_name" {
-  type    = string
-  default = "defaultdb"
+  description = "Database name."
+  type        = string
+  default     = "defaultdb"
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  description = "Tags applied to every resource."
+  type        = map(string)
+  default     = {}
 }

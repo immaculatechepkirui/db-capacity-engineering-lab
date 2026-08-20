@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@b6c5a5e516aef7754e69ebcdd7cc53d7be08c331
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -29,7 +29,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: aquasecurity/trivy-action@dc5b5ac3c7dc2d12462e30e6f596b0e3a8e35d7c
+      - uses: aquasecurity/trivy-action@<SHA_FROM_V0.36.0> # v0.36.0
         with:
           scan-type: config
           scan-ref: terraform/
@@ -44,7 +44,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: woodruffw/zizmor-action@0a4cd28f55df29a3c41873e8b4d8e38e0f7491b1
+      - uses: zizmorcore/zizmor-action@3dc1ecc9bcb9e94e9b2c709687979e1298497054 # v0.6.2
         with:
           zizmor-version: "1.0.0"
 

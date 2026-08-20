@@ -1,12 +1,12 @@
 #!/bin/bash
 # user-data receives the SECRET ARN only — never the password.
 # AWS_ENDPOINT_URL points the SDK at LocalStack. No if(isLocalStack) in app code.
-# DB_HOST uses localhost.localstack.cloud — see FIDELITY.md item 7.
+# DB_HOST is the Aiven MySQL endpoint (var.db_endpoint) — see FIDELITY.md item 7.
 set -euo pipefail
 
 cat >> /etc/environment << ENVEOF
 SECRET_ARN=${secret_arn}
-DB_HOST=localhost.localstack.cloud
+DB_HOST=${db_endpoint}
 DB_PORT=${db_port}
 DB_NAME=${db_name}
 APP_PORT=${app_port}

@@ -121,6 +121,10 @@ resource "aws_instance" "service" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.instance.id]
 
+  metadata_options {
+    http_tokens = "required"
+  }
+
   user_data = templatefile("${path.module}/templates/user-data.sh.tpl", {
     secret_arn   = var.secret_arn
     db_endpoint  = var.db_endpoint
@@ -133,6 +137,7 @@ resource "aws_instance" "service" {
   root_block_device {
     volume_size = 20
     volume_type = "gp3"
+    encrypted   = true
   }
 
   tags = merge(var.tags, {
@@ -150,11 +155,12 @@ resource "aws_instance" "service" {
 # nginx carries actual traffic (see FIDELITY.md on ELBv2 health checking).
 # -----------------------------------------------------------------------------
 resource "aws_lb" "service" {
-  name               = "${var.service_name}-alb"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb.id]
-  subnets            = data.aws_subnets.default.ids
+  name                       = "${var.service_name}-alb"
+  internal                   = false
+  load_balancer_type         = "application"
+  security_groups            = [aws_security_group.alb.id]
+  subnets                    = data.aws_subnets.default.ids
+  drop_invalid_header_fields = true
 
   tags = merge(var.tags, {
     Name      = "${var.service_name}-alb"

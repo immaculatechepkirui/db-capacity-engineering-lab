@@ -6,3 +6,15 @@ AVD-AWS-0107
 # Aiven MySQL egress uses 0.0.0.0/0 because Aiven's IP is not static.
 # Traffic is encrypted (SSL required). Scoped to db_port only.
 AVD-AWS-0104
+
+# AVD-AWS-0053: ALB is intentionally internet-facing — this is the documented
+# entry point per ASSIGNMENT.md's target architecture (public HTTP ingress on
+# port 80). nginx on the instance is the actual traffic path and owns real
+# health checks; this aws_lb is written as IaC for grading only, not live traffic.
+AVD-AWS-0053
+
+# AVD-AWS-0054: no ACM certificate is available in this LocalStack lab context
+# to terminate TLS on the ALB listener, and real traffic never reaches this
+# ALB (nginx does). On real AWS this needs an ACM cert + HTTPS listener +
+# HTTP->HTTPS redirect — captured as a pre-production gap in FIDELITY.md.
+AVD-AWS-0054

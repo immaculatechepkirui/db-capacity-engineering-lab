@@ -65,14 +65,13 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Start LocalStack Core Engine
-        env:
-          IMAGE_NAME: localstack/localstack
-          LOCALSTACK_ACKNOWLEDGE_ACCOUNT_REQUIREMENT: "1"
+      - name: Start Mock AWS Local Endpoint (Moto)
         run: |
-          pip install localstack
-          localstack start -d
-          localstack wait
+          pip install "moto[server]" awscli-local
+          moto_server -p 4566 &
+          echo "Waiting for mock server endpoint..."
+          while ! nc -z localhost 4566; do sleep 1; done
+          echo "Mock AWS engine up and running on port 4566!"
 
       - name: Build image
         run: make build

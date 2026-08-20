@@ -1,0 +1,42 @@
+groups:
+  - name: regional-health-alerts
+    rules:
+      - alert: OPS2201-SlowRoutes
+        expr: histogram_quantile(0.95, rate(http_request_duration_ms_bucket[5m])) > 2000
+        for: 2m
+        labels:
+          severity: warning
+          incident: "2201"
+        annotations:
+          summary: "p95 latency above 2000ms"
+          description: "Route {{ $labels.route }} p95 is {{ $value }}ms — check rows-examined and payload size."
+
+      - alert: OPS2202-PoolSaturation
+        expr: db_pool_pending_requests > 0
+        for: 30s
+        labels:
+          severity: critical
+          incident: "2202"
+        annotations:
+          summary: "DB connection pool saturated"
+          description: "{{ $value }} requests waiting for a DB connection."
+
+      - alert: OPS2203-LockWaitTimeout
+        expr: rate(db_lock_wait_timeouts_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+          incident: "2203"
+        annotations:
+          summary: "ER_LOCK_WAIT_TIMEOUT occurring"
+          description: "Lock wait timeouts detected — check concurrent write contention."
+
+      - alert: OPS2204-OOMRisk
+        expr: (container_memory_usage_bytes / container_spec_memory_limit_bytes) > 0.85
+        for: 1m
+        labels:
+          severity: critical
+          incident: "2204"
+        annotations:
+          summary: "Memory usage above 85% of limit"
+          description: "Container is approaching the 512m limit — OOM kill imminent."

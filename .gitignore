@@ -24,3 +24,6 @@ load-tests/results/
 .terraform/
 *.tfstate
 *.tfstate.backup
+.terraform/
+*.tfstate*
+session-manager-plugin.deb

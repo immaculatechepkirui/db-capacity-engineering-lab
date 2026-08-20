@@ -72,10 +72,9 @@ jobs:
         with:
           image-tag: 'latest'
           install-awslocal: true
-          use-pro: false
         env:
-          IMAGE_NAME: 'localstack/localstack'
           LOCALSTACK_ACKNOWLEDGE_ACCOUNT_REQUIREMENT: '1'
+          IMAGE_NAME: 'localstack/localstack'
 
       - name: Build image
         run: make build

@@ -66,6 +66,9 @@ jobs:
           persist-credentials: false
 
       - name: Start LocalStack Core Engine
+        env:
+          IMAGE_NAME: localstack/localstack
+          LOCALSTACK_ACKNOWLEDGE_ACCOUNT_REQUIREMENT: "1"
         run: |
           pip install localstack
           localstack start -d

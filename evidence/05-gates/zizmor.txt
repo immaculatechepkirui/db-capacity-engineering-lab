@@ -1,47 +1,4 @@
  INFO zizmor: 🌈 zizmor v1.29.0
  WARN audit: zizmor: zizmor is running in offline mode by default; some audits and auto-fixes will not be available. see https://docs.zizmor.sh/usage/#operating-modes for details
  INFO audit: zizmor: 🌈 completed .github/workflows/ci.yml
-warning[artipacked]: credential persistence through GitHub Actions artifacts
-  --> .github/workflows/ci.yml:18:9
-   |
-18 |         - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-   |  _________^
-19 | |         with:
-20 | |           fetch-depth: 0
-   | |________________________^ does not set persist-credentials: false
-   |
-   = note: audit confidence → Low
-   = note: this finding has an auto-fix
-   = help: audit documentation → https://docs.zizmor.sh/audits/#artipacked
-
-warning[artipacked]: credential persistence through GitHub Actions artifacts
-  --> .github/workflows/ci.yml:31:9
-   |
-31 |       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ does not set persist-credentials: false
-   |
-   = note: audit confidence → Low
-   = note: this finding has an auto-fix
-   = help: audit documentation → https://docs.zizmor.sh/audits/#artipacked
-
-warning[artipacked]: credential persistence through GitHub Actions artifacts
-  --> .github/workflows/ci.yml:46:9
-   |
-46 |       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ does not set persist-credentials: false
-   |
-   = note: audit confidence → Low
-   = note: this finding has an auto-fix
-   = help: audit documentation → https://docs.zizmor.sh/audits/#artipacked
-
-warning[artipacked]: credential persistence through GitHub Actions artifacts
-  --> .github/workflows/ci.yml:60:9
-   |
-60 |       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ does not set persist-credentials: false
-   |
-   = note: audit confidence → Low
-   = note: this finding has an auto-fix
-   = help: audit documentation → https://docs.zizmor.sh/audits/#artipacked
-
-6 findings (2 suppressed, 4 unsafe fixes): 0 informational, 0 low, 4 medium, 0 high
+No findings to report. Good job! (1 suppressed)

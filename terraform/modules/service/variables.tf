@@ -51,3 +51,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "deploy_alb" {
+  description = "Create the ALB for real. False by default: LocalStack's licensed tier here doesn't include ELBv2, and nginx (not this ALB) carries real traffic per ASSIGNMENT.md. The resource blocks are still written and trivy-scanned as IaC regardless. Set true against real AWS."
+  type        = bool
+  default     = false
+}

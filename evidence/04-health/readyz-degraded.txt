@@ -1,24 +1,3 @@
-=== STEP 1: confirm /readyz is healthy ===
-
-=== STEP 2: break the secret ===
-{
-    "ARN": "arn:aws:secretsmanager:us-east-1:000000000000:secret:regional-health/db-BaBhkR",
-    "Name": "regional-health/db",
-    "VersionId": "95063426-ab44-4e8f-a92e-43917fc563f0",
-    "VersionStages": [
-        "AWSCURRENT"
-    ]
-}
-Waiting 10 seconds for app to detect broken secret...
-=== STEP 3: check /readyz flips to 503 ===
-
-=== STEP 4: restore correct secret ===
-{
-    "ARN": "arn:aws:secretsmanager:us-east-1:000000000000:secret:regional-health/db-BaBhkR",
-    "Name": "regional-health/db",
-    "VersionId": "46e9f313-9d7e-463c-b5de-de82f8cbc032",
-    "VersionStages": [
-        "AWSCURRENT"
-    ]
-}
-=== STEP 5: confirm recovery ===
+healthy: 200
+degraded: 200
+recovered: 200

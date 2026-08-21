@@ -1,6 +1,6 @@
 output "alb_dns_name" {
   description = "ALB DNS name. Use this to reach the service — never the instance IP directly."
-  value       = aws_lb.service.dns_name
+  value       = try(aws_lb.service[0].dns_name, null)
 }
 
 output "instance_id" {

@@ -39,3 +39,20 @@ LocalStack returns `localhost:<port>` as the RDS endpoint. Inside the EC2
 container, localhost resolves to the container itself. Must use
 `localhost.localstack.cloud` which resolves to the Docker bridge IP.
 Real AWS verification: verify endpoint DNS resolution inside the VPC subnet.
+
+## Docker VM Manager did not register a custom-built image as an AMI
+- **What LocalStack did:** LocalStack's own bundled AMI (`ami-df5de72bdb3b`) launched
+  successfully via `RunInstances` — confirming Docker VM Manager itself works. However,
+  a custom image built locally and tagged per the documented scheme
+  (`localstack-ec2/app:ami-<sha12>`) was never returned by `DescribeImages` when
+  filtered on `tag:ec2_vm_manager=docker`, and `RunInstances` against it failed with
+  "collecting instance settings: couldn't find resource."
+- **How I detected it:** isolated the variable by testing LocalStack's own bundled
+  AMI first (success), then retesting the custom-tagged image (failure) — same
+  LocalStack container, same Docker socket, same host. Confirmed the Docker socket
+  was correctly mounted and the image existed via `docker images`.
+- **What I'd verify on real AWS:** none of this applies — real EC2 has no local
+  image-registration step at all. This is purely a LocalStack Docker VM Manager
+  fidelity gap specific to custom-built (vs. pre-pulled) images. Worked around it
+  by running the same Docker image directly (not via Terraform-managed EC2) for
+  C3/C4/C7 evidence, wired to the same real Secrets Manager secret and Aiven DB.

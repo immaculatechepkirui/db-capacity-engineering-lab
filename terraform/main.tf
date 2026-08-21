@@ -63,7 +63,8 @@ module "data" {
 }
 
 module "service" {
-  source = "./modules/service"
+  db_endpoint = module.data.db_endpoint
+  source      = "./modules/service"
 
   service_name = "regional-health-immaculate"
   app_ami_id   = var.app_ami_id

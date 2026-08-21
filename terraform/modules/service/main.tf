@@ -155,6 +155,7 @@ resource "aws_instance" "service" {
 # nginx carries actual traffic (see FIDELITY.md on ELBv2 health checking).
 # -----------------------------------------------------------------------------
 resource "aws_lb" "service" {
+  count                      = var.deploy_alb ? 1 : 0
   name                       = "${var.service_name}-alb"
   internal                   = false
   load_balancer_type         = "application"
@@ -169,6 +170,7 @@ resource "aws_lb" "service" {
 }
 
 resource "aws_lb_target_group" "service" {
+  count    = var.deploy_alb ? 1 : 0
   name     = "${var.service_name}-tg"
   port     = var.app_port
   protocol = "HTTP"
@@ -193,19 +195,21 @@ resource "aws_lb_target_group" "service" {
 }
 
 resource "aws_lb_target_group_attachment" "service" {
-  target_group_arn = aws_lb_target_group.service.arn
+  count            = var.deploy_alb ? 1 : 0
+  target_group_arn = aws_lb_target_group.service[0].arn
   target_id        = aws_instance.service.id
   port             = var.app_port
 }
 
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.service.arn
+  count             = var.deploy_alb ? 1 : 0
+  load_balancer_arn = aws_lb.service[0].arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.service.arn
+    target_group_arn = aws_lb_target_group.service[0].arn
   }
 
   tags = merge(var.tags, {

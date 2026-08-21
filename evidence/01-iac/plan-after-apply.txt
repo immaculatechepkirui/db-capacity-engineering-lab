@@ -1,10 +1,10 @@
 [0m[1mmodule.service.data.aws_vpc.default: Reading...[0m[0m
-[0m[1mmodule.data.aws_secretsmanager_secret.db: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:regional-health/db-BaBhkR][0m
-[0m[1mmodule.data.aws_secretsmanager_secret_version.db: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:regional-health/db-BaBhkR|terraform-20260820204225512600000002][0m
-[0m[1mmodule.service.data.aws_vpc.default: Read complete after 0s [id=vpc-ffa79450af716e7b2][0m
+[0m[1mmodule.data.aws_secretsmanager_secret.db: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:regional-health/db-NVzxXX][0m
+[0m[1mmodule.data.aws_secretsmanager_secret_version.db: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:regional-health/db-NVzxXX|terraform-20260821073602663700000002][0m
+[0m[1mmodule.service.data.aws_vpc.default: Read complete after 0s [id=vpc-25b72a8270cbb32d8][0m
 [0m[1mmodule.service.data.aws_subnets.default: Reading...[0m[0m
-[0m[1mmodule.service.aws_security_group.alb: Refreshing state... [id=sg-cb4a6d1535d227414][0m
-[0m[1mmodule.service.aws_security_group.instance: Refreshing state... [id=sg-2c03f179fbe38ca49][0m
+[0m[1mmodule.service.aws_security_group.alb: Refreshing state... [id=sg-9d58d704070ab6684][0m
+[0m[1mmodule.service.aws_security_group.instance: Refreshing state... [id=sg-65f6926cea8298ca7][0m
 [0m[1mmodule.service.data.aws_subnets.default: Read complete after 0s [id=us-east-1][0m
 
 Terraform used the selected providers to generate the following execution
@@ -15,7 +15,7 @@ Terraform will perform the following actions:
 
 [1m  # module.service.aws_instance.service[0m will be created
 [0m  [32m+[0m[0m resource "aws_instance" "service" {
-      [32m+[0m[0m ami                                  = "localstack-ec2/app:ami-7e315aae834c"
+      [32m+[0m[0m ami                                  = "ami-b77f60ca4127"
       [32m+[0m[0m arn                                  = (known after apply)
       [32m+[0m[0m associate_public_ip_address          = (known after apply)
       [32m+[0m[0m availability_zone                    = (known after apply)
@@ -67,11 +67,11 @@ Terraform will perform the following actions:
           [32m+[0m[0m "Project"     = "regional-health"
         }
       [32m+[0m[0m tenancy                              = (known after apply)
-      [32m+[0m[0m user_data                            = "3723269201293c9e3a6a25fd6a2ff2f49be7440f"
+      [32m+[0m[0m user_data                            = "189c6c47a9009882823e09add7d9ec889887ded0"
       [32m+[0m[0m user_data_base64                     = (known after apply)
       [32m+[0m[0m user_data_replace_on_change          = false
       [32m+[0m[0m vpc_security_group_ids               = [
-          [32m+[0m[0m "sg-2c03f179fbe38ca49",
+          [32m+[0m[0m "sg-65f6926cea8298ca7",
         ]
 
       [32m+[0m[0m capacity_reservation_specification (known after apply)
@@ -88,7 +88,13 @@ Terraform will perform the following actions:
 
       [32m+[0m[0m maintenance_options (known after apply)
 
-      [32m+[0m[0m metadata_options (known after apply)
+      [32m+[0m[0m metadata_options {
+          [32m+[0m[0m http_endpoint               = "enabled"
+          [32m+[0m[0m http_protocol_ipv6          = "disabled"
+          [32m+[0m[0m http_put_response_hop_limit = (known after apply)
+          [32m+[0m[0m http_tokens                 = "required"
+          [32m+[0m[0m instance_metadata_tags      = (known after apply)
+        }
 
       [32m+[0m[0m network_interface (known after apply)
 
@@ -97,7 +103,7 @@ Terraform will perform the following actions:
       [32m+[0m[0m root_block_device {
           [32m+[0m[0m delete_on_termination = true
           [32m+[0m[0m device_name           = (known after apply)
-          [32m+[0m[0m encrypted             = (known after apply)
+          [32m+[0m[0m encrypted             = true
           [32m+[0m[0m iops                  = (known after apply)
           [32m+[0m[0m kms_key_id            = (known after apply)
           [32m+[0m[0m tags_all              = (known after apply)
@@ -108,184 +114,9 @@ Terraform will perform the following actions:
         }
     }
 
-[1m  # module.service.aws_lb.service[0m will be created
-[0m  [32m+[0m[0m resource "aws_lb" "service" {
-      [32m+[0m[0m arn                                                          = (known after apply)
-      [32m+[0m[0m arn_suffix                                                   = (known after apply)
-      [32m+[0m[0m client_keep_alive                                            = 3600
-      [32m+[0m[0m desync_mitigation_mode                                       = "defensive"
-      [32m+[0m[0m dns_name                                                     = (known after apply)
-      [32m+[0m[0m drop_invalid_header_fields                                   = false
-      [32m+[0m[0m enable_deletion_protection                                   = false
-      [32m+[0m[0m enable_http2                                                 = true
-      [32m+[0m[0m enable_tls_version_and_cipher_suite_headers                  = false
-      [32m+[0m[0m enable_waf_fail_open                                         = false
-      [32m+[0m[0m enable_xff_client_port                                       = false
-      [32m+[0m[0m enable_zonal_shift                                           = false
-      [32m+[0m[0m enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
-      [32m+[0m[0m id                                                           = (known after apply)
-      [32m+[0m[0m idle_timeout                                                 = 60
-      [32m+[0m[0m internal                                                     = false
-      [32m+[0m[0m ip_address_type                                              = (known after apply)
-      [32m+[0m[0m load_balancer_type                                           = "application"
-      [32m+[0m[0m name                                                         = "regional-health-immaculate-alb"
-      [32m+[0m[0m name_prefix                                                  = (known after apply)
-      [32m+[0m[0m preserve_host_header                                         = false
-      [32m+[0m[0m security_groups                                              = [
-          [32m+[0m[0m "sg-cb4a6d1535d227414",
-        ]
-      [32m+[0m[0m subnets                                                      = [
-          [32m+[0m[0m "subnet-04c3f0ca532798409",
-          [32m+[0m[0m "subnet-2ca18c0eb913b6242",
-          [32m+[0m[0m "subnet-888b42618e0810829",
-          [32m+[0m[0m "subnet-d1089cf808276fa9b",
-          [32m+[0m[0m "subnet-d6812f9a5fdeb88dc",
-          [32m+[0m[0m "subnet-ebfe2ee5fef62359a",
-        ]
-      [32m+[0m[0m tags                                                         = {
-          [32m+[0m[0m "Component"   = "service"
-          [32m+[0m[0m "Environment" = "localstack"
-          [32m+[0m[0m "Name"        = "regional-health-immaculate-alb"
-          [32m+[0m[0m "Owner"       = "immaculate"
-          [32m+[0m[0m "Project"     = "regional-health"
-        }
-      [32m+[0m[0m tags_all                                                     = {
-          [32m+[0m[0m "Component"   = "service"
-          [32m+[0m[0m "Environment" = "localstack"
-          [32m+[0m[0m "Name"        = "regional-health-immaculate-alb"
-          [32m+[0m[0m "Owner"       = "immaculate"
-          [32m+[0m[0m "Project"     = "regional-health"
-        }
-      [32m+[0m[0m vpc_id                                                       = (known after apply)
-      [32m+[0m[0m xff_header_processing_mode                                   = "append"
-      [32m+[0m[0m zone_id                                                      = (known after apply)
-
-      [32m+[0m[0m subnet_mapping (known after apply)
-    }
-
-[1m  # module.service.aws_lb_listener.http[0m will be created
-[0m  [32m+[0m[0m resource "aws_lb_listener" "http" {
-      [32m+[0m[0m arn                                                                   = (known after apply)
-      [32m+[0m[0m id                                                                    = (known after apply)
-      [32m+[0m[0m load_balancer_arn                                                     = (known after apply)
-      [32m+[0m[0m port                                                                  = 80
-      [32m+[0m[0m protocol                                                              = "HTTP"
-      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
-      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
-      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
-      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
-      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
-      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
-      [32m+[0m[0m routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
-      [32m+[0m[0m routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
-      [32m+[0m[0m routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
-      [32m+[0m[0m routing_http_response_access_control_allow_headers_header_value       = (known after apply)
-      [32m+[0m[0m routing_http_response_access_control_allow_methods_header_value       = (known after apply)
-      [32m+[0m[0m routing_http_response_access_control_allow_origin_header_value        = (known after apply)
-      [32m+[0m[0m routing_http_response_access_control_expose_headers_header_value      = (known after apply)
-      [32m+[0m[0m routing_http_response_access_control_max_age_header_value             = (known after apply)
-      [32m+[0m[0m routing_http_response_content_security_policy_header_value            = (known after apply)
-      [32m+[0m[0m routing_http_response_server_enabled                                  = (known after apply)
-      [32m+[0m[0m routing_http_response_strict_transport_security_header_value          = (known after apply)
-      [32m+[0m[0m routing_http_response_x_content_type_options_header_value             = (known after apply)
-      [32m+[0m[0m routing_http_response_x_frame_options_header_value                    = (known after apply)
-      [32m+[0m[0m ssl_policy                                                            = (known after apply)
-      [32m+[0m[0m tags                                                                  = {
-          [32m+[0m[0m "Component"   = "service"
-          [32m+[0m[0m "Environment" = "localstack"
-          [32m+[0m[0m "Name"        = "regional-health-immaculate-listener"
-          [32m+[0m[0m "Owner"       = "immaculate"
-          [32m+[0m[0m "Project"     = "regional-health"
-        }
-      [32m+[0m[0m tags_all                                                              = {
-          [32m+[0m[0m "Component"   = "service"
-          [32m+[0m[0m "Environment" = "localstack"
-          [32m+[0m[0m "Name"        = "regional-health-immaculate-listener"
-          [32m+[0m[0m "Owner"       = "immaculate"
-          [32m+[0m[0m "Project"     = "regional-health"
-        }
-      [32m+[0m[0m tcp_idle_timeout_seconds                                              = (known after apply)
-
-      [32m+[0m[0m default_action {
-          [32m+[0m[0m order            = (known after apply)
-          [32m+[0m[0m target_group_arn = (known after apply)
-          [32m+[0m[0m type             = "forward"
-        }
-
-      [32m+[0m[0m mutual_authentication (known after apply)
-    }
-
-[1m  # module.service.aws_lb_target_group.service[0m will be created
-[0m  [32m+[0m[0m resource "aws_lb_target_group" "service" {
-      [32m+[0m[0m arn                                = (known after apply)
-      [32m+[0m[0m arn_suffix                         = (known after apply)
-      [32m+[0m[0m connection_termination             = (known after apply)
-      [32m+[0m[0m deregistration_delay               = "300"
-      [32m+[0m[0m id                                 = (known after apply)
-      [32m+[0m[0m ip_address_type                    = (known after apply)
-      [32m+[0m[0m lambda_multi_value_headers_enabled = false
-      [32m+[0m[0m load_balancer_arns                 = (known after apply)
-      [32m+[0m[0m load_balancing_algorithm_type      = (known after apply)
-      [32m+[0m[0m load_balancing_anomaly_mitigation  = (known after apply)
-      [32m+[0m[0m load_balancing_cross_zone_enabled  = (known after apply)
-      [32m+[0m[0m name                               = "regional-health-immaculate-tg"
-      [32m+[0m[0m name_prefix                        = (known after apply)
-      [32m+[0m[0m port                               = 3000
-      [32m+[0m[0m preserve_client_ip                 = (known after apply)
-      [32m+[0m[0m protocol                           = "HTTP"
-      [32m+[0m[0m protocol_version                   = (known after apply)
-      [32m+[0m[0m proxy_protocol_v2                  = false
-      [32m+[0m[0m slow_start                         = 0
-      [32m+[0m[0m tags                               = {
-          [32m+[0m[0m "Component"   = "service"
-          [32m+[0m[0m "Environment" = "localstack"
-          [32m+[0m[0m "Name"        = "regional-health-immaculate-tg"
-          [32m+[0m[0m "Owner"       = "immaculate"
-          [32m+[0m[0m "Project"     = "regional-health"
-        }
-      [32m+[0m[0m tags_all                           = {
-          [32m+[0m[0m "Component"   = "service"
-          [32m+[0m[0m "Environment" = "localstack"
-          [32m+[0m[0m "Name"        = "regional-health-immaculate-tg"
-          [32m+[0m[0m "Owner"       = "immaculate"
-          [32m+[0m[0m "Project"     = "regional-health"
-        }
-      [32m+[0m[0m target_type                        = "instance"
-      [32m+[0m[0m vpc_id                             = "vpc-ffa79450af716e7b2"
-
-      [32m+[0m[0m health_check {
-          [32m+[0m[0m enabled             = true
-          [32m+[0m[0m healthy_threshold   = 2
-          [32m+[0m[0m interval            = 30
-          [32m+[0m[0m matcher             = "200"
-          [32m+[0m[0m path                = "/healthz"
-          [32m+[0m[0m port                = "traffic-port"
-          [32m+[0m[0m protocol            = "HTTP"
-          [32m+[0m[0m timeout             = 5
-          [32m+[0m[0m unhealthy_threshold = 3
-        }
-
-      [32m+[0m[0m stickiness (known after apply)
-
-      [32m+[0m[0m target_failover (known after apply)
-
-      [32m+[0m[0m target_group_health (known after apply)
-
-      [32m+[0m[0m target_health_state (known after apply)
-    }
-
-[1m  # module.service.aws_lb_target_group_attachment.service[0m will be created
-[0m  [32m+[0m[0m resource "aws_lb_target_group_attachment" "service" {
-      [32m+[0m[0m id               = (known after apply)
-      [32m+[0m[0m port             = 3000
-      [32m+[0m[0m target_group_arn = (known after apply)
-      [32m+[0m[0m target_id        = (known after apply)
-    }
-
-[1mPlan:[0m 5 to add, 0 to change, 0 to destroy.
+[1mPlan:[0m 1 to add, 0 to change, 0 to destroy.
 [0m
 Changes to Outputs:
-  [32m+[0m[0m alb_dns_name        = (known after apply)
   [32m+[0m[0m instance_id         = (known after apply)
   [32m+[0m[0m instance_private_ip = (known after apply)
 [90m
